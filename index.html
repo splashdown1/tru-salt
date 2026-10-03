@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10140f">
+<title>TRU SALT</title>
+<style>
+:root{--bg:#10140f;--ink:#e7f0dc;--dim:#a8b89a;--line:#2c3824;--leaf:#c6d86a;--card:#1a2216;--bad:#c4543a}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Georgia,serif}
+button,input{font:inherit;color:inherit}
+header{padding:16px 16px 6px} h1{font-size:22px;letter-spacing:.14em;margin:0;font-weight:normal} h1 span{color:var(--leaf)}
+.sub{color:var(--dim);font-size:13px}
+.warn{margin:10px 16px;padding:10px 12px;border:1px solid var(--bad);border-radius:10px;font-size:14px}
+.bar{display:flex;gap:8px;padding:8px 16px} input{flex:1;background:#0c100a;border:1px solid var(--line);border-radius:8px;padding:10px}
+button{background:var(--leaf);color:#14180f;border:0;border-radius:8px;padding:10px 12px;font-weight:bold}
+main{padding:0 16px 28px} .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:0 0 10px}
+.k{color:var(--leaf);font-size:12px;letter-spacing:.12em} .big{font-size:22px;margin:4px 0} .src{color:var(--dim);font-size:12px;margin-top:6px}
+</style>
+</head>
+<body>
+<header><h1>TRU <span>SALT</span></h1><p class="sub">Draws water out. Seawater is not a drink. No cure schedule.</p></header>
+<div class="warn">Save the file. Open it in a browser. If it needs a network to run, it is not a lane. This page does not dose a body.</div>
+<div class="bar"><input id="q" placeholder="sea, meat, drink…" enterkeyhint="search"><button id="send">Send</button></div>
+<main id="out"></main>
+<script>
+var C=[
+{t:"Draws water out",d:"Salt pulls water out of meat and out of many microbes with the meat. Dry salt on a cut surface is why salt has kept food. Dry is the point. Wet salt is a brine, and this card does not give a brine."},
+{t:"Seawater is not a drink",d:"The sea is salt water. Drinking it makes the thirst worse. The body spends water to shed the salt. Water holds the drink: settle, then the EPA dose. This card does not turn seawater into drinking water."},
+{t:"Food, then too much",d:"A pinch seasons. A crust is a preserve, not a meal. Meat packed in salt still has to be rinsed and cooked before it is food. This card does not say how long to leave it in the salt."},
+{t:"Keep it dry",d:"Salt cakes if it takes up water from the air. A closed tin keeps it salt. A wet tin is not a reserve."},
+{t:"Not a medicine",d:"This card does not dose salt for cramp, heat, or blood. Lifeline holds the body. If the manual page is not here, it is not packed."},
+{t:"Gap",d:"No cure days. No brine strength. No pickling time. Pantry holds the jar process and the altitude. This card does not."}
+];
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return {"&":"&","<":"<",">":">"}[c];});}
+function card(x){return '<article class="card"><div class="k">SALT</div><div class="big">'+esc(x.t)+'</div><div>'+esc(x.d)+'</div><div class="src">What salt does. Not a cure book.</div></article>';}
+function show(l){document.getElementById("out").innerHTML=l.map(card).join("");}
+function search(q){q=(q||"").trim().toLowerCase(); if(!q){show(C);return;} var h=C.filter(function(x){return (x.t+" "+x.d).toLowerCase().indexOf(q)>=0;}); document.getElementById("out").innerHTML=h.length?h.map(card).join(""):'<article class="card"><div class="k">GAP</div><div class="big">Not packed</div><div>No invented brine.</div></article>';}
+document.getElementById("send").onclick=function(){search(document.getElementById("q").value);};
+document.getElementById("q").onkeydown=function(e){if(e.key==="Enter") search(e.target.value);};
+show(C);
+</script>
+</body>
+</html>
